@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shameless Anaume Rip-off</title>
+    <meta name="description" content="Not even trying to hide the fact this is a rip-off" />
+<style>
+body{margin:40px auto;max-width:650px;line-height:1;font-size:20px;color:#444;padding:0 10px}
+div{margin:40px;}
+h1,h2{line-height: 1.2;}
+table#question, input[type="text"]{font-size:50px;}
+#correct,#incorrect{display: inline-block;}
+input[type="text"]{width: 1em; height: 1em;}
+.green{color: green;}
+.red{color: red;}
+
+</style>
+</head>
+<body>
+    <center>
+    <h1>Anaume Rip-off</h1>
+    <form method="POST">
+        <div>
+        Difficulties: 
+        {% for diff in difficulties_available %}
+            <input
+                type="checkbox"
+                name="difficulty_{{diff}}"
+                value="{{diff}}"
+                {% if diff in session['difficulties'] %} checked {% endif %}
+                />
+            <label for="difficulty_{{diff}}">{{diff}}</label>
+        {% endfor %}
+        </div>
+        {% if 'last' in session %}
+        <div id='last'>
+            <h2>
+            {% if session['last_answer'] == session['last'].answer %}
+            <span class="green">Correct!</span>
+            {% else %}
+            <span class="red">Noep!</span>
+            {% endif %}
+
+            (<span class="green">{{session['correct'] or '0'}}</span>/{{session['total']}})
+            </h2>
+
+            {% if session['last_answer'] != session['last'].answer %}
+            <table id='incorrect'>
+                <tr><td></td><td>{{session['last'].top}}</td><td></td></tr>
+                <tr><td>{{session['last'].left}}</td><td class="red">{{session['last_answer'] or '?'}}</td><td>{{session['last'].right}}</td><td></td></tr>
+                <tr><td></td><td>{{session['last'].bottom}}</td><td></td></tr>
+            </table>
+            {% endif %}
+
+            <table id='correct'>
+                <tr><td></td><td>{{session['last'].top}}</td><td></td></tr>
+                <tr><td>{{session['last'].left}}</td><td class="green">{{session['last'].answer}}</td><td>{{session['last'].right}}</td></tr>
+                <tr><td></td><td>{{session['last'].bottom}}</td><td></td></tr>
+            </table>
+        </div>
+        {% endif %}
+        <div>
+            <h2>Question "{{question.difficulty}}" #{{question.number}}:</h2>
+        <table id='question'>
+            <tr><td></td><td>{{question.top}}</td><td></td></tr>
+            <tr><td>{{question.left}}</td><td><input type="text" name="answer" maxlength=1 minlength=1 size=1 autocomplete="off" autofocus/></td><td>{{question.right}}</td></tr>
+            <tr><td></td><td>{{question.bottom}}</td><td></td></tr>
+        </table>
+        <input type="submit" value="submit"/>
+        </div>
+    </form>
+    </center>
+</body>
+</html>

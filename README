@@ -1,0 +1,5 @@
+Shameless rip-off of the https://kanji.kuizu100.net/anaume kanji quiz thing
+
+run scrape.py for scraping all the quiestions off of there
+
+run anaume_flask.py (as a wsgi app) for the game part of it
