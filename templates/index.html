@@ -42,7 +42,7 @@ input[type="text"]{width: 1em; height: 1em;}
             <span class="red">Noep!</span>
             {% endif %}
 
-            (<span class="green">{{session['correct'] or '0'}}</span>/{{session['total']}})
+            (<span class="green">{{session['correct'] or '0'}}</span>/{{session['total'] or '0'}})
             </h2>
 
             {% if session['last_answer'] != session['last'].answer %}
@@ -67,7 +67,8 @@ input[type="text"]{width: 1em; height: 1em;}
             <tr><td>{{question.left}}</td><td><input type="text" name="answer" maxlength=1 minlength=1 size=1 autocomplete="off" autofocus/></td><td>{{question.right}}</td></tr>
             <tr><td></td><td>{{question.bottom}}</td><td></td></tr>
         </table>
-        <input type="submit" value="submit"/>
+        <input type="submit" name="submit"/>
+        <input type="hidden" name="correct_answer" value="{{question.answer}}"/>
         </div>
     </form>
     </center>

@@ -52,10 +52,11 @@ def index(difficulty, number):
 
     if request.method == 'POST':
         session['total'] = session.get('total', 0) + 1
-        if 'last' in session and session['last']['answer'] == session['last_answer']:
+        answer = request.form.get('answer', None)
+        if answer and answer == request.form.get('correct_answer', None):
             session['correct'] = session.get('correct', 0) + 1
         session['last'] = questions[difficulty][number]._asdict()
-        session['last_answer'] = request.form.get('answer', None)
+        session['last_answer'] = answer
         difficulty = None
         number = None
 
